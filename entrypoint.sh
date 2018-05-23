@@ -1,20 +1,12 @@
 #!/bin/bash
+cd /home/container
 
-if [ ! -f ".docker-scripts-copied" ]; then
-  mv scripts_org/* scripts
-  rm -r scripts_org
-  touch .docker-scripts-copied
-  echo "Copied original scripts to the volume"
-fi
+# Make internal Docker IP address available to processes.
+export INTERNAL_IP=`ip route get 1 | awk '{print $NF;exit}'`
 
-echo "Updating youtube-dl..."
-youtube-dl --restrict-filename -U
-echo "youtube-dl updated"
+# Replace Startup Variables
+MODIFIED_STARTUP=`eval echo $(echo ${STARTUP} | sed -e 's/{{/${/g' -e 's/}}/}/g')`
+echo ":/home/container$ ${MODIFIED_STARTUP}"
 
-echo "Starting SinusBot..."
-if [[ -v "${OVERRIDE_PASSWORD}" ]]; then
-  echo "Using the --override-password flag"
-  /opt/sinusbot/sinusbot --override-password="${OVERRIDE_PASSWORD}"
-else
-  /opt/sinusbot/sinusbot
-fi
+# Run the Server
+eval ${MODIFIED_STARTUP}
