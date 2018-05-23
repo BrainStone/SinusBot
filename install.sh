@@ -6,7 +6,7 @@ case "$1" in
 	echo "Installing TeamSpeak Client..."
 	# Get latest TeamSpeak client version
 	#VERSION=$(wget -q -O - http://dl.4players.de/ts/releases/ | grep -Po '(?<=href=")[0-9]+(\.[0-9]+){2,3}(?=/")' | sort -Vr | head -1)
-  VERSION="3.1.9"
+	VERSION="3.1.9"
 
 	# Download TeamSpeak client
 	echo "Downloading TeamSpeak Client v$VERSION..."
@@ -18,9 +18,11 @@ case "$1" in
 	yes | ./TeamSpeak3-Client-linux_amd64-$VERSION.run
 	rm TeamSpeak3-Client-linux_amd64-$VERSION.run
 
-	# Copy SinusBot plugin
+	# Download and Copy SinusBot plugin
 	mkdir TeamSpeak3-Client-linux_amd64/plugins
-	cp plugin/libsoundbot_plugin.so TeamSpeak3-Client-linux_amd64/plugins
+	wget -qO - https://www.sinusbot.com/pre/sinusbot-0.13.37-f7e9ece.tar.bz2 | tar xj plugin/libsoundbot_plugin.so
+	mv plugin/libsoundbot_plugin.so TeamSpeak3-Client-linux_amd64/plugins
+	rm -r plugin
 
 	# Remove glx-integration lib
 	rm TeamSpeak3-Client-linux_amd64/xcbglintegrations/libqxcb-glx-integration.so
