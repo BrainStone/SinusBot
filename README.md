@@ -1,26 +1,17 @@
 # SinusBot Docker image
 
-[![Docker Automated build](https://img.shields.io/docker/automated/sinusbot/docker.svg)](https://store.docker.com/community/images/sinusbot/docker)
-[![Docker Build Status](https://img.shields.io/docker/build/sinusbot/docker.svg)](https://store.docker.com/community/images/sinusbot/docker/builds)
-[![Docker Pulls](https://img.shields.io/docker/pulls/sinusbot/docker.svg)](https://store.docker.com/community/images/sinusbot/docker)
-[![Image Info](https://images.microbadger.com/badges/image/sinusbot/docker.svg)](https://microbadger.com/images/sinusbot/docker)
+[![Docker Automated build](https://img.shields.io/docker/automated/brainstone/sinus-bot.svg)](https://store.docker.com/community/images/brainstone/sinus-bot)
+[![Docker Build Status](https://img.shields.io/docker/build/brainstone/sinus-bot.svg)](https://store.docker.com/community/images/brainstone/sinus-bot/builds)
+[![Docker Pulls](https://img.shields.io/docker/pulls/brainstone/sinus-bot.svg)](https://store.docker.com/community/images/brainstone/sinus-bot)
+[![Image Info](https://images.microbadger.com/badges/image/brainstone/sinus-bot.svg)](https://microbadger.com/images/brainstone/sinus-bot)
 
 ## Installation
 
 By using this image you accept the [Privacy statement of the TeamSpeak Systems GmbH](https://www.teamspeak.com/en/policies) and the license agreement of the SinusBot.
 
-### docker-compose
+### Adding to Pterodactyl
 
-Download the [docker-compose file](https://github.com/SinusBot/docker/blob/master/docker-compose.yml) in it's own directory and start it with `docker-compose up`.
-
-### docker
-
-```bash
-docker run -d -p 8087:8087 \
-           -v scripts:/opt/sinusbot/scripts \
-           -v data:/opt/sinusbot/data \
-           --name sinusbot sinusbot/docker
-```
+Just use the script in `install_pterodactyl.sh`
 
 ## Get Sinusbot Password
 
@@ -40,67 +31,3 @@ PLEASE MAKE SURE TO CHANGE THE PASSWORD DIRECTLY AFTER YOUR FIRST LOGIN!!!
 ## Password overriding
 
 By setting the `OVERRIDE_PASSWORD` environment variable you can override the password of the SinusBot. Usage:
-
-```bash
-docker run -d -p 8087:8087 \
-           -v scripts:/opt/sinusbot/scripts \
-           -v data:/opt/sinusbot/data \
-           -e OVERRIDE_PASSWORD=foobar \
-           --name sinusbot sinusbot/docker
-```
-
-## Discord only image
-
-There exists an image for discord only usage, this won't contain the teamspeak client with the additonal dependencies. For that use the `discord` tag instead of the `latest` (default) tag:
-
-```bash
-docker run -d -p 8087:8087 \
-           -v scripts:/opt/sinusbot/scripts \
-           -v data:/opt/sinusbot/data \
-           --name sinusbot sinusbot/docker:discord
-```
-
-## Updating the image
-
-Run the following command to update the image to the latest version:
-
-```bash
-docker pull sinusbot/docker
-```
-
-After that you just need to restart your container, by executing the following command:
-
-```bash
-docker restart CONTAINER_NAME
-```
-
-## Other Docker registries
-
-### QUAY
-
-[![Docker Repository on Quay](https://quay.io/repository/sinusbot/docker/status "Docker Repository on Quay")](https://quay.io/repository/sinusbot/docker)
-
-Can be pulled by using:
-
-```bash
-docker pull quay.io/sinusbot/docker
-```
-
-Also the discord image is available on the `discord` tag:
-
-```bash
-docker pull quay.io/sinusbot/docker:discord
-```
-
-For using docker-compose with [quay.io](https://quay.io) just replace `sinusbot/docker` with `quay.io/sinusbot/docker`. Example:
-
-```yaml
-sinusbot:
-  image: quay.io/sinusbot/docker
-  restart: always
-  ports:
-    - 8087:8087
-  volumes:
-    - ./scripts:/opt/sinusbot/scripts
-    - ./data:/opt/sinusbot/data
-```
