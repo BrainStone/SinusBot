@@ -8,7 +8,6 @@ case "$1" in
 	chmod +x sinusbot
 	cp config.ini.dist config.ini
 	sed -i "s|^TS3Path.*|TS3Path = \"\"|g" config.ini
-	mv scripts scripts_org
 	echo "Successfully downloaded SinusBot"
 	;;
 "teamspeak")

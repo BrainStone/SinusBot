@@ -1,7 +1,8 @@
 FROM debian:stretch-slim
 
 LABEL maintainer="Max Schmitt <max@schmitt.mx>"
-LABEL description="Docker Image for the Teamspeak 3 and Discord MusicBot called SinusBot."
+LABEL maintainer="Yannick Schinko <yannick@tedworld.de>"
+LABEL description="Docker Image for the Teamspeak 3 and Discord MusicBot called SinusBot customized to work with Pterodactyl."
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends ca-certificates bzip2 wget less x11vnc xvfb libxcursor1 libnss3 libegl1-mesa libasound2 libglib2.0-0 python libxcomposite-dev && \
@@ -10,8 +11,7 @@ RUN apt-get update && \
 
 WORKDIR /opt/sinusbot
 
-ADD install.sh .
-RUN chmod +x install.sh
+COPY ./install.sh ./install.sh
 
 # Download/Install SinusBot
 RUN bash install.sh sinusbot
@@ -22,11 +22,12 @@ RUN bash install.sh teamspeak
 # Download/Install youtube-dl
 RUN bash install.sh youtube-dl
 
-ADD entrypoint.sh .
-RUN chmod +x entrypoint.sh
 
-EXPOSE 8087
+USER container
+ENV USER=container HOME=/home/container
 
-VOLUME ["/opt/sinusbot/data", "/opt/sinusbot/scripts"]
+WORKDIR /home/container
 
-ENTRYPOINT ["/opt/sinusbot/entrypoint.sh"]
+COPY ./entrypoint.sh /entrypoint.sh
+
+CMD ["/bin/bash", "/entrypoint.sh"]

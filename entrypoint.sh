@@ -14,7 +14,7 @@ echo "youtube-dl updated"
 echo "Starting SinusBot..."
 if [[ -v "${OVERRIDE_PASSWORD}" ]]; then
   echo "Using the --override-password flag"
-  ./sinusbot --override-password="${OVERRIDE_PASSWORD}"
+  /opt/sinusbot/sinusbot --override-password="${OVERRIDE_PASSWORD}"
 else
-  ./sinusbot
+  /opt/sinusbot/sinusbot
 fi
