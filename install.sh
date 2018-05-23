@@ -13,7 +13,8 @@ case "$1" in
 "teamspeak")
 	echo "Installing TeamSpeak Client..."
 	# Get latest TeamSpeak client version
-	VERSION=$(wget -q -O - http://dl.4players.de/ts/releases/ | grep -Po '(?<=href=")[0-9]+(\.[0-9]+){2,3}(?=/")' | sort -Vr | head -1)
+	#VERSION=$(wget -q -O - http://dl.4players.de/ts/releases/ | grep -Po '(?<=href=")[0-9]+(\.[0-9]+){2,3}(?=/")' | sort -Vr | head -1)
+  VERSION="3.1.9"
 
 	# Download TeamSpeak client
 	echo "Downloading TeamSpeak Client v$VERSION..."
