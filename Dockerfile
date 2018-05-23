@@ -8,7 +8,7 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends ca-certificates bzip2 wget less x11vnc xvfb libxcursor1 libnss3 libegl1-mesa libasound2 libglib2.0-0 python libxcomposite-dev && \
     apt-get -q clean all && \
     rm -rf /tmp/* /var/tmp/* && \
-    adduser -D -h /home/container container
+    useradd -D -h /home/container container
 
 WORKDIR /opt/sinusbot
 
