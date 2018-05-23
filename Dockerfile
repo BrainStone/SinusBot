@@ -14,9 +14,6 @@ WORKDIR /opt/sinusbot
 
 COPY ./install.sh ./install.sh
 
-# Download/Install SinusBot
-RUN bash install.sh sinusbot
-
 # Download/Install TeamSpeak Client
 RUN bash install.sh teamspeak
 
